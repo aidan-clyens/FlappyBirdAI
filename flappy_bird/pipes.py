@@ -31,5 +31,5 @@ class Pipes:
     def collides(self, bird):
         return self._bottom_rect.colliderect(bird) or self._top_rect.colliderect(bird)
 
-    def get_height(self):
-        return self._bottom_rect.y
+    def get_position(self):
+        return [self._bottom_rect.x, self._bottom_rect.y]
