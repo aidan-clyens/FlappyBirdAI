@@ -10,7 +10,8 @@ class Game:
         self._screen = pygame.display.set_mode([SCREEN_WIDTH, SCREEN_HEIGHT])
         self._clock = pygame.time.Clock()
 
-        self._bird = Bird()
+        self._birds = []
+        self._birds.append(Bird())
         self._pipes = []
         self._pipes.append(Pipes())
 
@@ -19,7 +20,8 @@ class Game:
     def draw(self):
         self._screen.fill(pygame.Color(0, 0, 0))
 
-        self._bird.draw(self._screen)
+        for bird in self._birds:
+            bird.draw(self._screen)
         
         for pipe in self._pipes:
             pipe.draw(self._screen)
@@ -27,13 +29,14 @@ class Game:
         pygame.display.flip()
     
     def update(self):
-        self._bird.update()
+        for bird in self._birds:
+            bird.update()
         
         self.update_pipes()
         for pipe in self._pipes:
             pipe.update()
 
-        if self.is_bird_dead():
+        if self.are_birds_dead():
             self._running = False
 
     def step(self, action=None):
@@ -66,15 +69,21 @@ class Game:
     def get_observation(self):
         return None
     
-    def is_bird_dead(self):
-        if self._bird.get_height() > SCREEN_HEIGHT:
-            return True
+    def are_birds_dead(self):
+        for bird in self._birds:
+            is_dead = False
 
-        for pipe in self._pipes:
-            if pipe.collides(self._bird._rect):
-                return True
+            if bird.get_height() > SCREEN_HEIGHT:
+                is_dead = True
 
-        return False
+            for pipe in self._pipes:
+                if pipe.collides(bird._rect):
+                    is_dead = True
+
+            if is_dead:
+                self._birds.remove(bird)
+
+        return len(self._birds) == 0
 
     def is_running(self):
         return self._running
