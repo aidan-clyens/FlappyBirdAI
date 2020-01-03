@@ -6,6 +6,8 @@ class Bird:
         self._shape = pygame.Surface([50, 50])
         self._shape.fill(pygame.Color(255, 255, 255))
         self._rect = self._shape.get_rect()
+        self._rect.y = 100
+        self._rect.x = 200
 
         self._vertical_speed = 0
 
