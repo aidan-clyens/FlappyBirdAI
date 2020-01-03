@@ -33,3 +33,6 @@ class Bird:
             return True
         
         return False
+
+    def get_height(self):
+        return self._rect.y
