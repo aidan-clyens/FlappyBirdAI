@@ -1,4 +1,4 @@
-from .constants import PIPE_HORIZONTAL_GAP, PIPE_WIDTH, SCREEN_WIDTH, SCREEN_HEIGHT, BLUE
+from .constants import PIPE_HORIZONTAL_GAP, PIPE_WIDTH, SCREEN_WIDTH, SCREEN_HEIGHT, WHITE, BLUE, FONT_PATH, FONT_SIZE
 from .bird import Bird
 from .pipes import Pipes
 
@@ -9,6 +9,8 @@ class Game:
     def __init__(self):
         self._screen = pygame.display.set_mode([SCREEN_WIDTH, SCREEN_HEIGHT])
         pygame.display.set_caption("Flappy Bird AI")
+        pygame.init()
+
         self._clock = pygame.time.Clock()
 
         self._birds = []
@@ -16,12 +18,15 @@ class Game:
         self._pipes = []
         self._pipes.append(Pipes())
 
-        self._running = True
+        self._font = pygame.font.Font(FONT_PATH, FONT_SIZE)
+        self._top_score = 0
 
-        pygame.init()
+        self._running = True
 
     def draw(self):
         self._screen.fill(BLUE)
+
+        self.draw_score()
 
         for bird in self._birds:
             bird.draw(self._screen)
@@ -36,6 +41,7 @@ class Game:
             bird.update()
         
         self.update_pipes()
+        self.count_score()
         for pipe in self._pipes:
             pipe.update()
 
@@ -75,6 +81,14 @@ class Game:
 
             elif pipe.get_position()[0] < -PIPE_WIDTH:
                 self._pipes.remove(pipe)
+
+    def draw_score(self):
+        for bird in self._birds:
+            if bird.get_score() > self._top_score:
+                self._top_score = bird.get_score()
+        
+        score_text = self._font.render(str(self._top_score), True, WHITE)
+        self._screen.blit(score_text, [20, 5])
 
     def get_observation(self):
         return None
