@@ -1,3 +1,5 @@
+from pygame import Color
+
 SCREEN_WIDTH = 800
 SCREEN_HEIGHT = 600
 
@@ -6,3 +8,9 @@ PIPE_WIDTH = 70
 
 PIPE_HORIZONTAL_GAP = int(SCREEN_WIDTH / 3)
 PIPE_VERTICAL_GAP = 200
+
+WHITE = Color(255, 255, 255)
+BLACK = Color(0, 0, 0)
+BLUE = Color(93, 188, 210)
+GREEN = Color(121, 192, 0)
+YELLOW = Color(255, 238, 39)

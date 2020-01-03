@@ -1,4 +1,4 @@
-from .constants import PIPE_HORIZONTAL_GAP, PIPE_WIDTH, SCREEN_WIDTH, SCREEN_HEIGHT
+from .constants import PIPE_HORIZONTAL_GAP, PIPE_WIDTH, SCREEN_WIDTH, SCREEN_HEIGHT, BLUE
 from .bird import Bird
 from .pipes import Pipes
 
@@ -18,7 +18,7 @@ class Game:
         self._running = True
 
     def draw(self):
-        self._screen.fill(pygame.Color(0, 0, 0))
+        self._screen.fill(BLUE)
 
         for bird in self._birds:
             bird.draw(self._screen)
@@ -66,9 +66,9 @@ class Game:
 
     def update_pipes(self):
         for pipe in self._pipes:
-            if len(self._pipes) < 2:
-                if pipe.get_position()[0] < PIPE_HORIZONTAL_GAP:
-                    self._pipes.append(Pipes())
+    def are_birds_dead(self):
+        for bird in self._birds:
+            is_dead = False
 
             elif pipe.get_position()[0] < -PIPE_WIDTH:
                 self._pipes.remove(pipe)

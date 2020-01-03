@@ -1,4 +1,4 @@
-from .constants import PIPE_VERTICAL_GAP, PIPE_WIDTH, SCREEN_WIDTH, SCREEN_HEIGHT
+from .constants import PIPE_VERTICAL_GAP, PIPE_WIDTH, SCREEN_WIDTH, SCREEN_HEIGHT, GREEN
 
 import pygame
 import random
@@ -7,13 +7,13 @@ import random
 class Pipes:
     def __init__(self):
         self._bottom_shape = pygame.Surface([PIPE_WIDTH, 1000])
-        self._bottom_shape.fill(pygame.Color(255, 255, 255))
+        self._bottom_shape.fill(GREEN)
         self._bottom_rect = self._bottom_shape.get_rect()
         self._bottom_rect.y = random.randint((SCREEN_HEIGHT / 4), (3*SCREEN_HEIGHT / 4))
         self._bottom_rect.x = SCREEN_WIDTH
     
         self._top_shape = pygame.Surface([PIPE_WIDTH, 1000])
-        self._top_shape.fill(pygame.Color(255, 255, 255))
+        self._top_shape.fill(GREEN)
         self._top_rect = self._top_shape.get_rect()
         self._top_rect.y = self._bottom_rect.y - self._bottom_rect.height - PIPE_VERTICAL_GAP
         self._top_rect.x = SCREEN_WIDTH
