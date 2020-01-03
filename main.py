@@ -4,7 +4,7 @@ from flappy_bird import Game
 def main():
     game = Game()
 
-    for _ in range(500):
+    while True:
         if not game.is_running():
             break
 
