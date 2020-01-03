@@ -1,4 +1,4 @@
-from .constants import PIPE_GAP, PIPE_WIDTH, SCREEN_WIDTH, SCREEN_HEIGHT
+from .constants import PIPE_HORIZONTAL_GAP, PIPE_WIDTH, SCREEN_WIDTH, SCREEN_HEIGHT
 from .bird import Bird
 from .pipes import Pipes
 
@@ -57,7 +57,7 @@ class Game:
     def update_pipes(self):
         for pipe in self._pipes:
             if len(self._pipes) < 2:
-                if pipe.get_position()[0] < PIPE_GAP:
+                if pipe.get_position()[0] < PIPE_HORIZONTAL_GAP:
                     self._pipes.append(Pipes())
 
             elif pipe.get_position()[0] < -PIPE_WIDTH:
