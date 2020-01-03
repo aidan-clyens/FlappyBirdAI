@@ -1,6 +1,6 @@
 from .constants import SCREEN_WIDTH, SCREEN_HEIGHT
 from .bird import Bird
-from .pipe import Pipe
+from .pipes import Pipes
 
 import pygame
 
@@ -11,7 +11,7 @@ class Game:
         self._clock = pygame.time.Clock()
 
         self._bird = Bird()
-        self._pipe = Pipe()
+        self._pipe = Pipes()
 
         self._running = True
 
