@@ -17,6 +17,8 @@ class Game:
 
         self._running = True
 
+        pygame.init()
+
     def draw(self):
         self._screen.fill(BLUE)
 
