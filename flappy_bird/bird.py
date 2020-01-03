@@ -1,9 +1,10 @@
+from .constants import SCREEN_HEIGHT, BIRD_SIZE
 import pygame
 
 
 class Bird:
     def __init__(self):
-        self._shape = pygame.Surface([50, 50])
+        self._shape = pygame.Surface([BIRD_SIZE, BIRD_SIZE])
         self._shape.fill(pygame.Color(255, 255, 255))
         self._rect = self._shape.get_rect()
         self._rect.y = 100

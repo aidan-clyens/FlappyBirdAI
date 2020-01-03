@@ -1,3 +1,4 @@
+from .constants import SCREEN_WIDTH, SCREEN_HEIGHT
 from .bird import Bird
 
 import pygame
@@ -5,7 +6,7 @@ import pygame
 
 class Game:
     def __init__(self):
-        self._screen = pygame.display.set_mode([800, 600])
+        self._screen = pygame.display.set_mode([SCREEN_WIDTH, SCREEN_HEIGHT])
         self._clock = pygame.time.Clock()
 
         self._bird = Bird()
