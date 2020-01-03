@@ -20,6 +20,8 @@ class Pipes:
 
         self._horizontal_speed = 5
 
+        self._passed = False
+
     def update(self):
         self._bottom_rect.x -= self._horizontal_speed
         self._top_rect.x -= self._horizontal_speed
@@ -33,3 +35,9 @@ class Pipes:
 
     def get_position(self):
         return [self._bottom_rect.x, self._bottom_rect.y]
+
+    def set_passed(self, passed):
+        self._passed = passed
+
+    def get_passed(self):
+        return self._passed
