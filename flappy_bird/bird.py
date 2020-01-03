@@ -19,3 +19,9 @@ class Bird:
 
     def draw(self, screen):
         screen.blit(self._shape, [self._rect.x, self._rect.y])
+
+    def is_dead(self):
+        if self._rect.y > SCREEN_HEIGHT:
+            return True
+        
+        return False

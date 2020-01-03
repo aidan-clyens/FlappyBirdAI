@@ -21,6 +21,9 @@ class Game:
     def update(self):
         self._bird.update()
 
+        if self._bird.is_dead():
+            self.quit()
+
     def step(self, action=None):
         self.poll_events()
 
