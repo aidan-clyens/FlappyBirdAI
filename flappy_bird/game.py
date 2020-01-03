@@ -1,4 +1,4 @@
-from .constants import SCREEN_WIDTH, SCREEN_HEIGHT
+from .constants import PIPE_WIDTH, SCREEN_WIDTH, SCREEN_HEIGHT
 from .bird import Bird
 from .pipes import Pipes
 
@@ -29,6 +29,7 @@ class Game:
     def update(self):
         self._bird.update()
         
+        self.update_pipes()
         for pipe in self._pipes:
             pipe.update()
 
@@ -52,6 +53,11 @@ class Game:
         for event in pygame.event.get():
             if event == pygame.QUIT:
                 self._running = False
+
+    def update_pipes(self):
+        for pipe in self._pipes:
+            if pipe.get_position()[0] < -PIPE_WIDTH:
+                self._pipes.remove(pipe)
 
     def get_observation(self):
         return None
