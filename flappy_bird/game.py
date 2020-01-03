@@ -1,5 +1,6 @@
 from .constants import SCREEN_WIDTH, SCREEN_HEIGHT
 from .bird import Bird
+from .pipe import Pipe
 
 import pygame
 
@@ -10,18 +11,22 @@ class Game:
         self._clock = pygame.time.Clock()
 
         self._bird = Bird()
+        self._pipe = Pipe()
 
         self._running = True
 
     def draw(self):
         self._screen.fill(pygame.Color(0, 0, 0))
+        self._pipe.draw(self._screen)
 
         self._bird.draw(self._screen)
+        self._pipe.draw(self._screen)
 
         pygame.display.flip()
     
     def update(self):
         self._bird.update()
+        self._pipe.update()
 
         if self._bird.is_dead():
             self._running = False
