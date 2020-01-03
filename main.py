@@ -8,8 +8,8 @@ def main():
         if not game.is_running():
             break
 
-        observation = game.step()
-
+        observation, action = game.step()
+  
     game.quit()
 
 

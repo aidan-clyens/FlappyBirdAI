@@ -12,13 +12,17 @@ class Bird:
 
         self._vertical_speed = 0
 
+        self._last_action = 0
         self._score = 0
 
     def update(self):
         pressed = pygame.key.get_pressed()
 
         if pressed[pygame.K_SPACE]:
+            self._last_action = 1
             self.fly()
+        else:
+            self._last_action = 0
 
         self._vertical_speed += GRAVITY_ACCELERATION
 
@@ -41,3 +45,6 @@ class Bird:
 
     def get_position(self):
         return [self._rect.x, self._rect.y]
+
+    def get_last_action(self):
+        return self._last_action

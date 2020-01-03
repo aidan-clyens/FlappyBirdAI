@@ -56,7 +56,7 @@ class Game:
 
         self._clock.tick(60)
     
-        return self.get_observation()
+        return self.get_observation(), self.get_action()
 
     def quit(self):
         pygame.quit()
@@ -112,6 +112,13 @@ class Game:
             observations.append(observation)
         
         return observations
+
+    def get_action(self):
+        actions = []
+        for bird in self._birds:
+            actions.append(bird.get_last_action())
+
+        return actions
 
     def are_birds_dead(self):
         for bird in self._birds:
