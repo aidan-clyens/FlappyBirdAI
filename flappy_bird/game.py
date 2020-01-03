@@ -11,6 +11,8 @@ class Game:
 
         self._bird = Bird()
 
+        self._running = True
+
     def draw(self):
         self._screen.fill(pygame.Color(0, 0, 0))
 
@@ -22,7 +24,7 @@ class Game:
         self._bird.update()
 
         if self._bird.is_dead():
-            self.quit()
+            self._running = False
 
     def step(self, action=None):
         self.poll_events()
@@ -40,7 +42,10 @@ class Game:
     def poll_events(self):
         for event in pygame.event.get():
             if event == pygame.QUIT:
-                self.quit()
+                self._running = False
 
     def get_observation(self):
         return None
+    
+    def is_running(self):
+        return self._running
