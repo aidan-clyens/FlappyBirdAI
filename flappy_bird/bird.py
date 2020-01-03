@@ -7,8 +7,12 @@ class Bird:
         self._shape.fill(pygame.Color(255, 255, 255))
         self._rect = self._shape.get_rect()
 
+        self._vertical_speed = 0
+
     def update(self):
-        pass
+        self._vertical_speed += 2
+
+        self._rect.y += self._vertical_speed
 
     def draw(self, screen):
         screen.blit(self._shape, [self._rect.x, self._rect.y])
