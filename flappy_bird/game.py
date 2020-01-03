@@ -13,7 +13,7 @@ class Game:
     def update(self):
         pass
 
-    def step(self):
+    def step(self, action=None):
         self.poll_events()
 
         self.update()
