@@ -12,6 +12,8 @@ class Bird:
 
         self._vertical_speed = 0
 
+        self._score = 0
+
     def update(self):
         pressed = pygame.key.get_pressed()
 
@@ -28,8 +30,14 @@ class Bird:
     def fly(self):
         self._vertical_speed -= 6
 
+    def add_score(self):
+        self._score += 1
+
+    def get_score(self):
+        return self._score
+
     def collides(self, pipe):
         return self._rect.colliderect(pipe)
 
-    def get_height(self):
-        return self._rect.y
+    def get_position(self):
+        return [self._rect.x, self._rect.y]

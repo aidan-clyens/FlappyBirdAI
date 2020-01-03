@@ -57,6 +57,13 @@ class Game:
             if event == pygame.QUIT:
                 self._running = False
 
+    def count_score(self):
+        for bird in self._birds:
+            for pipe in self._pipes:
+                if bird.get_position()[0] > pipe.get_position()[0] and not pipe.get_passed():
+                    pipe.set_passed(True)
+                    bird.add_score()
+
     def update_pipes(self):
         for pipe in self._pipes:
             if len(self._pipes) < 2:
@@ -73,7 +80,7 @@ class Game:
         for bird in self._birds:
             is_dead = False
 
-            if bird.get_height() > SCREEN_HEIGHT:
+            if bird.get_position()[1] > SCREEN_HEIGHT:
                 is_dead = True
 
             for pipe in self._pipes:
