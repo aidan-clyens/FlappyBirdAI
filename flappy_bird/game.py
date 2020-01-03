@@ -1,3 +1,5 @@
+from .bird import Bird
+
 import pygame
 
 
@@ -6,12 +8,17 @@ class Game:
         self._screen = pygame.display.set_mode([800, 600])
         self._clock = pygame.time.Clock()
 
+        self._bird = Bird()
+
     def draw(self):
         self._screen.fill(pygame.Color(0, 0, 0))
+
+        self._bird.draw(self._screen)
+
         pygame.display.flip()
     
     def update(self):
-        pass
+        self._bird.update()
 
     def step(self, action=None):
         self.poll_events()
