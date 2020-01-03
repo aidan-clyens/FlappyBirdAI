@@ -11,22 +11,26 @@ class Game:
         self._clock = pygame.time.Clock()
 
         self._bird = Bird()
-        self._pipe = Pipes()
+        self._pipes = []
+        self._pipes.append(Pipes())
 
         self._running = True
 
     def draw(self):
         self._screen.fill(pygame.Color(0, 0, 0))
-        self._pipe.draw(self._screen)
 
         self._bird.draw(self._screen)
-        self._pipe.draw(self._screen)
+        
+        for pipe in self._pipes:
+            pipe.draw(self._screen)
 
         pygame.display.flip()
     
     def update(self):
         self._bird.update()
-        self._pipe.update()
+        
+        for pipe in self._pipes:
+            pipe.update()
 
         if self.is_bird_dead():
             self._running = False
@@ -56,9 +60,10 @@ class Game:
         if self._bird.get_height() > SCREEN_HEIGHT:
             return True
 
-        if self._pipe.collides(self._bird._rect):
-            return True
-        
+        for pipe in self._pipes:
+            if pipe.collides(self._bird._rect):
+                return True
+
         return False
 
     def is_running(self):
