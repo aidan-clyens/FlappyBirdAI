@@ -26,13 +26,13 @@ class Game:
     def draw(self):
         self._screen.fill(BLUE)
 
-        self.draw_score()
-
         for bird in self._birds:
             bird.draw(self._screen)
         
         for pipe in self._pipes:
             pipe.draw(self._screen)
+
+        self.draw_score()
 
         pygame.display.flip()
     
