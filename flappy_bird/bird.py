@@ -28,11 +28,8 @@ class Bird:
     def fly(self):
         self._vertical_speed -= 6
 
-    def is_dead(self):
-        if self._rect.y > SCREEN_HEIGHT:
-            return True
-        
-        return False
+    def collides(self, pipe):
+        return self._rect.colliderect(pipe)
 
     def get_height(self):
         return self._rect.y

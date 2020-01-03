@@ -28,7 +28,7 @@ class Game:
         self._bird.update()
         self._pipe.update()
 
-        if self._bird.is_dead():
+        if self.is_bird_dead():
             self._running = False
 
     def step(self, action=None):
@@ -52,5 +52,14 @@ class Game:
     def get_observation(self):
         return None
     
+    def is_bird_dead(self):
+        if self._bird.get_height() > SCREEN_HEIGHT:
+            return True
+
+        if self._pipe.collides(self._bird._rect):
+            return True
+        
+        return False
+
     def is_running(self):
         return self._running

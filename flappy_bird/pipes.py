@@ -28,5 +28,8 @@ class Pipes:
         screen.blit(self._bottom_shape, [self._bottom_rect.x, self._bottom_rect.y])
         screen.blit(self._top_shape, [self._top_rect.x, self._top_rect.y])
     
+    def collides(self, bird):
+        return self._bottom_rect.colliderect(bird) or self._top_rect.colliderect(bird)
+
     def get_height(self):
         return self._bottom_rect.y
