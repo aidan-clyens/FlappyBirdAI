@@ -91,8 +91,28 @@ class Game:
         self._screen.blit(score_text, [20, 5])
 
     def get_observation(self):
-        return None
-    
+        observations = []
+
+        for bird in self._birds:
+            pipe_index = 0
+            while self._pipes[pipe_index].get_passed():
+                pipe_index += 1
+
+            next_pipe = self._pipes[pipe_index]
+            
+            observation = [
+                bird.get_position()[1],
+                next_pipe.get_position()[0] - bird.get_position()[0],
+                next_pipe.get_position()[1] - bird.get_position()[1],
+            ]
+
+            for i in range(len(observation)):
+                observation[i] /= SCREEN_HEIGHT
+        
+            observations.append(observation)
+        
+        return observations
+
     def are_birds_dead(self):
         for bird in self._birds:
             is_dead = False
