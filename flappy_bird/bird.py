@@ -1,4 +1,4 @@
-from .constants import SCREEN_HEIGHT, BIRD_SIZE, YELLOW
+from .constants import SCREEN_HEIGHT, BIRD_SIZE, GRAVITY_ACCELERATION, FLY_ACCELERATION, YELLOW
 import pygame
 
 
@@ -20,7 +20,7 @@ class Bird:
         if pressed[pygame.K_SPACE]:
             self.fly()
 
-        self._vertical_speed += 2
+        self._vertical_speed += GRAVITY_ACCELERATION
 
         self._rect.y += self._vertical_speed
 
@@ -28,7 +28,7 @@ class Bird:
         screen.blit(self._shape, [self._rect.x, self._rect.y])
 
     def fly(self):
-        self._vertical_speed -= 6
+        self._vertical_speed -= FLY_ACCELERATION
 
     def add_score(self):
         self._score += 1
