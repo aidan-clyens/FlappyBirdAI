@@ -21,6 +21,8 @@ class Game:
 
         self._clock.tick(60)
     
+        return self.get_observation()
+
     def quit(self):
         pygame.quit()
 
@@ -28,3 +30,6 @@ class Game:
         for event in pygame.event.get():
             if event == pygame.QUIT:
                 self.quit()
+
+    def get_observation(self):
+        return None

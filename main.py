@@ -4,7 +4,8 @@ from flappy_bird import Game
 def main():
     game = Game()
 
-    game.step()
+    for _ in range(50):
+        observation = game.step()
 
     game.quit()
 
