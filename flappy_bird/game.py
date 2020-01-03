@@ -66,9 +66,9 @@ class Game:
 
     def update_pipes(self):
         for pipe in self._pipes:
-    def are_birds_dead(self):
-        for bird in self._birds:
-            is_dead = False
+            if len(self._pipes) < 2:
+                if pipe.get_position()[0] < PIPE_HORIZONTAL_GAP:
+                    self._pipes.append(Pipes())
 
             elif pipe.get_position()[0] < -PIPE_WIDTH:
                 self._pipes.remove(pipe)
