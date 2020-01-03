@@ -13,12 +13,20 @@ class Bird:
         self._vertical_speed = 0
 
     def update(self):
+        pressed = pygame.key.get_pressed()
+
+        if pressed[pygame.K_SPACE]:
+            self.fly()
+
         self._vertical_speed += 2
 
         self._rect.y += self._vertical_speed
 
     def draw(self, screen):
         screen.blit(self._shape, [self._rect.x, self._rect.y])
+
+    def fly(self):
+        self._vertical_speed -= 6
 
     def is_dead(self):
         if self._rect.y > SCREEN_HEIGHT:
