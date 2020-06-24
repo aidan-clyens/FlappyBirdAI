@@ -1,4 +1,6 @@
-from .constants import PIPE_HORIZONTAL_GAP, PIPE_WIDTH, SCREEN_WIDTH, SCREEN_HEIGHT, WHITE, BLUE, FONT_PATH, FONT_SIZE
+from .constants import PIPE_HORIZONTAL_GAP, PIPE_WIDTH
+from .constants import SCREEN_WIDTH, SCREEN_HEIGHT
+from .constants import WHITE, BLUE, FONT_PATH, FONT_SIZE
 from .bird import Bird
 from .pipes import Pipes
 
@@ -7,46 +9,46 @@ import pygame
 
 class Game:
     def __init__(self):
-        self._screen = pygame.display.set_mode([SCREEN_WIDTH, SCREEN_HEIGHT])
+        self.screen = pygame.display.set_mode([SCREEN_WIDTH, SCREEN_HEIGHT])
         pygame.display.set_caption("Flappy Bird AI")
         pygame.init()
 
-        self._clock = pygame.time.Clock()
+        self.clock = pygame.time.Clock()
 
-        self._birds = []
-        self._birds.append(Bird())
-        self._pipes = []
-        self._pipes.append(Pipes())
+        self.birds = []
+        self.birds.append(Bird())
+        self.pipes = []
+        self.pipes.append(Pipes())
 
-        self._font = pygame.font.Font(FONT_PATH, FONT_SIZE)
-        self._top_score = 0
+        self.font = pygame.font.Font(FONT_PATH, FONT_SIZE)
+        self.top_score = 0
 
-        self._running = True
+        self.running = True
 
     def draw(self):
-        self._screen.fill(BLUE)
+        self.screen.fill(BLUE)
 
-        for bird in self._birds:
-            bird.draw(self._screen)
-        
-        for pipe in self._pipes:
-            pipe.draw(self._screen)
+        for bird in self.birds:
+            bird.draw(self.screen)
+
+        for pipe in self.pipes:
+            pipe.draw(self.screen)
 
         self.draw_score()
 
         pygame.display.flip()
-    
+
     def update(self):
-        for bird in self._birds:
+        for bird in self.birds:
             bird.update()
-        
+
         self.update_pipes()
         self.count_score()
-        for pipe in self._pipes:
+        for pipe in self.pipes:
             pipe.update()
 
         if self.are_birds_dead():
-            self._running = False
+            self.running = False
 
     def step(self, action=None):
         self.poll_events()
@@ -54,8 +56,8 @@ class Game:
         self.update()
         self.draw()
 
-        self._clock.tick(60)
-    
+        self.clock.tick(60)
+
         return self.get_observation(), self.get_action()
 
     def quit(self):
@@ -64,42 +66,42 @@ class Game:
     def poll_events(self):
         for event in pygame.event.get():
             if event == pygame.QUIT:
-                self._running = False
+                self.running = False
 
     def count_score(self):
-        for bird in self._birds:
-            for pipe in self._pipes:
-                if bird.get_position()[0] > pipe.get_position()[0] and not pipe.get_passed():
-                    pipe.set_passed(True)
-                    bird.add_score()
+        for bird in self.birds:
+            for pipe in self.pipes:
+                if bird.get_position()[0] > pipe.get_position()[0] \
+                        and not pipe.passed:
+                    pipe.passed = True
+                    bird.score += 1
 
     def update_pipes(self):
-        for pipe in self._pipes:
-            if len(self._pipes) < 2:
+        for pipe in self.pipes:
+            if len(self.pipes) < 2:
                 if pipe.get_position()[0] < PIPE_HORIZONTAL_GAP:
-                    self._pipes.append(Pipes())
+                    self.pipes.append(Pipes())
 
             elif pipe.get_position()[0] < -PIPE_WIDTH:
-                self._pipes.remove(pipe)
+                self.pipes.remove(pipe)
 
     def draw_score(self):
-        for bird in self._birds:
-            if bird.get_score() > self._top_score:
-                self._top_score = bird.get_score()
-        
-        score_text = self._font.render(str(self._top_score), True, WHITE)
-        self._screen.blit(score_text, [20, 5])
+        for bird in self.birds:
+            self.top_score = max(bird.score, self.top_score)
+
+        score_text = self.font.render(str(self.top_score), True, WHITE)
+        self.screen.blit(score_text, [20, 5])
 
     def get_observation(self):
         observations = []
 
-        for bird in self._birds:
+        for bird in self.birds:
             pipe_index = 0
-            while self._pipes[pipe_index].get_passed():
+            while self.pipes[pipe_index].passed:
                 pipe_index += 1
 
-            next_pipe = self._pipes[pipe_index]
-            
+            next_pipe = self.pipes[pipe_index]
+
             observation = [
                 bird.get_position()[1],
                 next_pipe.get_position()[0] - bird.get_position()[0],
@@ -108,33 +110,30 @@ class Game:
 
             for i in range(len(observation)):
                 observation[i] /= SCREEN_HEIGHT
-        
+
             observations.append(observation)
-        
+
         return observations
 
     def get_action(self):
         actions = []
-        for bird in self._birds:
-            actions.append(bird.get_last_action())
+        for bird in self.birds:
+            actions.append(bird.last_action)
 
         return actions
 
     def are_birds_dead(self):
-        for bird in self._birds:
+        for bird in self.birds:
             is_dead = False
 
             if bird.get_position()[1] > SCREEN_HEIGHT:
                 is_dead = True
 
-            for pipe in self._pipes:
-                if pipe.collides(bird._rect):
+            for pipe in self.pipes:
+                if pipe.collides(bird.rect):
                     is_dead = True
 
             if is_dead:
-                self._birds.remove(bird)
+                self.birds.remove(bird)
 
-        return len(self._birds) == 0
-
-    def is_running(self):
-        return self._running
+        return len(self.birds) == 0

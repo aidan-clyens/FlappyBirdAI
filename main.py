@@ -5,11 +5,11 @@ def main():
     game = Game()
 
     while True:
-        if not game.is_running():
+        if not game.running:
             break
 
         observation, action = game.step()
-  
+
     game.quit()
 
 

@@ -19,5 +19,8 @@ BLUE = Color(93, 188, 210)
 GREEN = Color(121, 192, 0)
 YELLOW = Color(255, 238, 39)
 
-FONT_PATH = os.path.join(os.getcwd(), 'flappy_bird/res/fonts/ArcadeClassic.ttf')
+FONT_PATH = os.path.join(
+    os.getcwd(),
+    'flappy_bird/res/fonts/ArcadeClassic.ttf'
+)
 FONT_SIZE = 96
