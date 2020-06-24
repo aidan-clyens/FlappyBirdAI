@@ -8,15 +8,14 @@ import pygame
 
 
 class Game:
-    def __init__(self):
+    def __init__(self, population=[Bird()]):
         self.screen = pygame.display.set_mode([SCREEN_WIDTH, SCREEN_HEIGHT])
         pygame.display.set_caption("Flappy Bird AI")
         pygame.init()
 
         self.clock = pygame.time.Clock()
 
-        self.birds = []
-        self.birds.append(Bird())
+        self.birds = population
         self.pipes = []
         self.pipes.append(Pipes())
 
