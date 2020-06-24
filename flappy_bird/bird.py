@@ -15,10 +15,10 @@ class Bird:
         self._last_action = 0
         self._score = 0
 
-    def update(self):
+    def update(self, fly=False):
         pressed = pygame.key.get_pressed()
 
-        if pressed[pygame.K_SPACE]:
+        if pressed[pygame.K_SPACE] or fly:
             self._last_action = 1
             self.fly()
         else:
