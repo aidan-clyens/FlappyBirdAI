@@ -8,18 +8,19 @@ import pygame
 
 
 class Game:
-    def __init__(self, population=[Bird()]):
+    def __init__(self):
         self.screen = pygame.display.set_mode([SCREEN_WIDTH, SCREEN_HEIGHT])
         pygame.display.set_caption("Flappy Bird AI")
         pygame.init()
 
         self.clock = pygame.time.Clock()
+        self.font = pygame.font.Font(FONT_PATH, FONT_SIZE)
 
+    def reset(self, population=[Bird()]):
         self.birds = population
         self.pipes = []
         self.pipes.append(Pipes())
 
-        self.font = pygame.font.Font(FONT_PATH, FONT_SIZE)
         self.top_score = 0
 
         self.running = True
