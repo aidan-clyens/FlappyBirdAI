@@ -3,11 +3,18 @@ from agent import BirdAgent
 
 
 def main():
-    game = Game()
+    population_size = 5
+    generation_count = 5
 
-    for gen in range(5):
+    game = Game()
+    population = [BirdAgent() for i in range(population_size)]
+    for bird in population:
+        bird.reset()
+
+    for gen in range(generation_count):
         print(f"Generation={gen}")
-        population = [BirdAgent() for i in range(5)]
+        for bird in population:
+            bird.reset()
         game.reset(population)
 
         while True:
@@ -15,6 +22,8 @@ def main():
                 break
 
             observation, action = game.step()
+
+        population = game.dead_birds
 
     game.quit()
 

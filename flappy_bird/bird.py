@@ -9,6 +9,8 @@ class Bird:
     def __init__(self):
         self.shape = pygame.Surface([BIRD_SIZE, BIRD_SIZE])
         self.shape.fill(YELLOW)
+
+    def reset(self):
         self.rect = self.shape.get_rect()
         self.rect.y = 100
         self.rect.x = 200

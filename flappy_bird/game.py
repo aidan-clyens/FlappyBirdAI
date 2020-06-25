@@ -18,6 +18,7 @@ class Game:
 
     def reset(self, population=[Bird()]):
         self.birds = population
+        self.dead_birds = []
         self.pipes = []
         self.pipes.append(Pipes())
 
@@ -135,5 +136,6 @@ class Game:
 
             if is_dead:
                 self.birds.remove(bird)
+                self.dead_birds.append(bird)
 
         return len(self.birds) == 0
