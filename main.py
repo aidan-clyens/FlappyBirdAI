@@ -17,12 +17,18 @@ def main():
             bird.reset()
         game.reset(population)
 
+        observations = []
+        actions = []
         while True:
             if not game.running:
                 break
 
             observation, action = game.step()
+            observations.append(observation)
+            actions.append(action)
 
+        observations = observations[:-1]
+        actions = actions[:-1]
         population = game.dead_birds
 
     game.quit()
